@@ -1,5 +1,27 @@
 let field = document.getElementById('field');
 
+let win_height = document.documentElement.clientHeight;
+let win_width = document.documentElement.clientWidth;
+
+let galaxys = []
+
+field.addEventListener('mouseup', e => {
+    let x = e.clientX;
+    let y = e.clientY;
+
+    if (galaxys.length + 1 > 10){
+        let del_stars = document.querySelectorAll('.star');
+        galaxys.splice(0, 10);
+        for (let i = 0; i < del_stars.length; i++){
+            del_stars[i].remove();
+        }
+    }
+
+    let galaxy = new Galaxy(getRandom(1, 8), x, y);
+    galaxy.create_galaxy();
+    galaxys.push(galaxy);
+})
+
 class Planet{
     #planet;
     #target;
@@ -20,7 +42,7 @@ class Planet{
         this.#planet.classList.add(this.type);
     }
     move = () => {
-        let radius = (this.num_ring * this.num_ring * 15) / 2 + this.#target.size / 2 + 10;
+        let radius = (this.num_ring * this.num_ring * 15 + 24) / 2 + this.#target.size / 2;
         let rotate = 0;
         let alpha = this.speed * Math.PI / 180;
         setInterval(()=>{
@@ -38,7 +60,7 @@ class Star extends Planet{
         this.num_rings = num_rings;
         this.x = x;
         this.y = y;
-        field.insertAdjacentHTML(`beforeend`, `<div id="${this.name}"></div>`);
+        field.insertAdjacentHTML(`beforeend`, `<div id="${this.name}" class="star"></div>`);
     }
     set_params = () => {
         let star = document.getElementById(this.name);
@@ -63,7 +85,7 @@ class Stars{
     create = () => {
         for (let i = 0; i < this.count; i++){
             let size = getRandom(1, 3);
-            this.#place.insertAdjacentHTML('afterbegin', `<div class="stars" id="star_${i}" style="height: ${size}px; width: ${size}px; top: ${getRandom(0, document.documentElement.clientHeight)}px; left: ${getRandom(0, document.documentElement.clientWidth)}px;"></div>`);
+            this.#place.insertAdjacentHTML('afterbegin', `<div class="stars" id="star_${i}" style="height: ${size}px; width: ${size}px; top: ${getRandom(0, win_height)}px; left: ${getRandom(0, win_width)}px;"></div>`);
         }
     }
     setAnimation = () => {
@@ -79,16 +101,26 @@ class Stars{
     }
 }
 
+class Galaxy{
+    constructor(quantity_planets, x, y){
+        this.quantity_planets = quantity_planets;
+        this.x = x;
+        this.y = y;
+    }
+    create_galaxy = () => {
+        let star = new Star(`Star ${getRandom(1, 10000)}`, getRandom(20, 150), 'star1', this.quantity_planets, this.x, this.y);
+        star.set_params();
+        for (let i = 0; i < this.quantity_planets; i++){
+            let new_planet = new Planet(`Planet ${getRandom(1, 10000)}`, getRandom(10, 41), `type${getRandom(1, 6)}`, star, i + 1, `0.${getRandom(1, 5)}`);
+            new_planet.set_params();
+            new_planet.move();
+        }
+    }
+}
+
 const getRandom = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
 }
-
-let star1 = new Star('Star 1', 100, 'star1', 7, 500, 400);
-star1.set_params();
-
-let planet1 = new Planet('Planet_1', 30, 'type1', star1, 5, 0.1);
-planet1.set_params();
-planet1.move();
 
 let stars = new Stars(500, field);
 stars.create();
