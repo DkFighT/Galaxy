@@ -9,6 +9,7 @@
 :root{
     --size: 80vmin;
     --ring_color: #3a4a6c;
+    --stars: #bde7ff;
     --bg: radial-gradient(#3c4a6c, #161729);
     --star1: linear-gradient(0deg, rgba(255,252,0,1) 10%, rgba(255,154,0,1) 40%, rgba(255,154,0,1) 60%, rgba(255,252,0,1) 90%);
     --color2: radial-gradient(circle at 100%, #c76e2a, #c76e2a 50%, #894b1c 75%, #894b1c 75%);
@@ -28,8 +29,8 @@
 .stars{
     position: absolute;
     border-radius: 50%;
-    box-shadow: 0px 0px 5px #bde7ff;
-    background: #bde7ff;
+    box-shadow: 0px 0px 5px var(--stars);
+    background: var(--stars);
     transition: all .3 linear;
 }
 .type{
@@ -81,4 +82,12 @@
     background: transparent;
     position: absolute;
     translate: -50% -50%;
+    z-index: 10;
+}
+.cometa{
+    border-radius: 50%;
+    background: var(--stars);
+    position: absolute;
+    box-shadow: 0px 0px 5px var(--stars);
+    transition: all .5s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
