@@ -9,9 +9,9 @@ field.addEventListener('mouseup', e => {
     let x = e.clientX;
     let y = e.clientY;
 
-    if (galaxys.length + 1 > 10) {
+    if (galaxys.length + 1 > 7) {
         let del_stars = document.querySelectorAll('.star');
-        galaxys.splice(0, 10);
+        galaxys.splice(0, 7);
         for (let i = 0; i < del_stars.length; i++) {
             del_stars[i].remove();
         }
@@ -99,7 +99,7 @@ class Stars {
                 document.getElementById('star_' + getRandom(0, 500)).style.opacity = '1';
             }
             if (comets == 0) {
-                let comet = new Cometa(getRandom(0, 10000), getRandom(2, 7), parseFloat(`0.${getRandom(0, 10)}`, 10));
+                let comet = new Cometa(getRandom(0, 10000), getRandom(2, 5), parseFloat(`0.${getRandom(0, 10)}`, 10));
                 comet.create_cometa();
                 comet.move();
             }
@@ -162,7 +162,7 @@ class Galaxy {
         this.y = y;
     }
     create_galaxy = () => {
-        let star = new Star(`Star ${getRandom(1, 10000)}`, getRandom(20, 150), 'star1', this.quantity_planets, this.x, this.y);
+        let star = new Star(`Star ${getRandom(1, 10000)}`, getRandom(20, 70), 'star1', this.quantity_planets, this.x, this.y);
         star.set_params();
         for (let i = 0; i < this.quantity_planets; i++) {
             let new_planet = new Planet(`Planet ${getRandom(1, 10000)}`, getRandom(10, 41), `type${getRandom(1, 6)}`, star, i + 1, `0.${getRandom(1, 5)}`);
