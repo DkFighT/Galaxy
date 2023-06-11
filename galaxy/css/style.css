@@ -83,6 +83,7 @@
     position: absolute;
     translate: -50% -50%;
     z-index: 10;
+    opacity: .5;
 }
 .cometa{
     border-radius: 50%;

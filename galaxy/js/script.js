@@ -41,6 +41,14 @@ class Planet {
         this.#planet.style.width = `${this.size}px`;
         this.#planet.classList.add(this.type);
     }
+    set_sputnik = () => {
+        let sputnik = getRandom(0, 10);
+        if (sputnik == 0){
+            let first_sputnik = new Sputnik(`Sputnik_${getRandom(0, 10000)}`, getRandom(3, 7), `type${getRandom(1, 6)}`, this, 1, 1);
+            first_sputnik.set_params();
+            first_sputnik.move();
+        }
+    } 
     move = () => {
         let radius = (this.num_ring * this.num_ring * 15 + 24) / 2 + this.#target.size / 2;
         let rotate = 0;
@@ -51,6 +59,12 @@ class Planet {
             this.#planet.style.left = `${(this.#target.size / 2) + radius * Math.sin(rotate)}px`;
             this.#planet.style.transform = `rotate(${rotate * 180 / Math.PI * -1 - 90}deg)`;
         }, this.speed);
+    }
+}
+
+class Sputnik extends Planet {
+    constructor(name, size, type, target, num_ring, speed){
+        super(name, size, type, target, num_ring, speed)
     }
 }
 
@@ -167,6 +181,7 @@ class Galaxy {
         for (let i = 0; i < this.quantity_planets; i++) {
             let new_planet = new Planet(`Planet ${getRandom(1, 10000)}`, getRandom(10, 41), `type${getRandom(1, 6)}`, star, i + 1, `0.${getRandom(1, 5)}`);
             new_planet.set_params();
+            new_planet.set_sputnik();
             new_planet.move();
         }
     }
