@@ -8,15 +8,20 @@ let galaxys = []
 field.addEventListener('mouseup', e => {
     let x = e.clientX;
     let y = e.clientY;
+    let max_length = 7;
 
-    if (galaxys.length + 1 > 7) {
+    if (galaxys.length + 1 > max_length) {
         let del_stars = document.querySelectorAll('.star');
-        galaxys.splice(0, 7);
+        galaxys.splice(0, max_length);
         for (let i = 0; i < del_stars.length; i++) {
             del_stars[i].remove();
         }
     }
-
+    for (let i = 0; i < galaxys.length; i++){
+        let effect = document.getElementById(galaxys[i].star.name)
+        effect.style.transform = `scale(${max_length / max_length / (galaxys.length - i)})`;
+        effect.style.opacity = `${max_length / max_length / (galaxys.length - i)}`;
+    }
     let galaxy = new Galaxy(getRandom(1, 8), x, y);
     galaxy.create_galaxy();
     galaxys.push(galaxy);
@@ -74,7 +79,7 @@ class Star extends Planet {
         this.num_rings = num_rings;
         this.x = x;
         this.y = y;
-        field.insertAdjacentHTML(`beforeend`, `<div id="${this.name}" class="star"></div>`);
+        field.insertAdjacentHTML(`beforeend`, `<div id="${this.name}" class="star" style="transition: all .5 linear;"></div>`);
     }
     set_params = () => {
         let star = document.getElementById(this.name);
@@ -174,12 +179,13 @@ class Galaxy {
         this.quantity_planets = quantity_planets;
         this.x = x;
         this.y = y;
+        this.star;
     }
     create_galaxy = () => {
-        let star = new Star(`Star ${getRandom(1, 10000)}`, getRandom(20, 70), 'star1', this.quantity_planets, this.x, this.y);
-        star.set_params();
+        this.star = new Star(`Star ${getRandom(1, 10000)}`, getRandom(20, 70), 'star1', this.quantity_planets, this.x, this.y);
+        this.star.set_params();
         for (let i = 0; i < this.quantity_planets; i++) {
-            let new_planet = new Planet(`Planet ${getRandom(1, 10000)}`, getRandom(10, 41), `type${getRandom(1, 6)}`, star, i + 1, `0.${getRandom(1, 5)}`);
+            let new_planet = new Planet(`Planet ${getRandom(1, 10000)}`, getRandom(10, 41), `type${getRandom(1, 6)}`, this.star, i + 1, `0.${getRandom(1, 5)}`);
             new_planet.set_params();
             new_planet.set_sputnik();
             new_planet.move();

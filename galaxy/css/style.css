@@ -5,15 +5,13 @@
     box-sizing: border-box;
 }
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-
 :root{
-    --size: 80vmin;
     --ring_color: #3a4a6c;
     --stars: #bde7ff;
     --bg: radial-gradient(#3c4a6c, #161729);
     --star1: linear-gradient(0deg, rgba(255,252,0,1) 10%, rgba(255,154,0,1) 40%, rgba(255,154,0,1) 60%, rgba(255,252,0,1) 90%);
-    --color2: radial-gradient(circle at 100%, #c76e2a, #c76e2a 50%, #894b1c 75%, #894b1c 75%);
     --color1: radial-gradient(circle at 100%, #b5e3e3, #b5e3e3 50%, #8baeae 75%, #8baeae 75%);
+    --color2: radial-gradient(circle at 100%, #c76e2a, #c76e2a 50%, #894b1c 75%, #894b1c 75%);
     --color3: radial-gradient(circle at 100%, #175793, #175793 50%, #104472 75%, #104472 75%);
     --color4: radial-gradient(circle at 100%, #d83a1e, #d83a1e 50%, #9b2b19 75%, #9b2b19 75%);    
     --color5: radial-gradient(circle at 100%, #beb768, #beb768 50%, #8e894e 75%, #8e894e 75%);
@@ -24,14 +22,12 @@
     overflow: hidden;
     position: relative;
     background: var(--bg);
-    transition: all .3 linear;
 }
 .stars{
     position: absolute;
     border-radius: 50%;
     box-shadow: 0px 0px 5px var(--stars);
     background: var(--stars);
-    transition: all .3 linear;
 }
 .type{
     border-radius: 50%;
@@ -40,7 +36,6 @@
     transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 10;
 }
-
 .type1{
     background: var(--color2);
 }
@@ -56,7 +51,6 @@
 .type5{
     background: var(--color5);
 }
-
 .type1:hover::after, .type2:hover::after, .type3:hover::after, .type4:hover::after, .type5:hover::after{
     width: auto;
     height: 20px;
@@ -75,6 +69,7 @@
     background: var(--star1);
     box-shadow: 0px 0px 20px rgba(255,252,0,1);
     z-index: 10;
+    transition: all .5 linear;
 }
 .ring{
     border-radius: 50%;
